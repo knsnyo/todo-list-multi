@@ -12,6 +12,7 @@ export class TodoGuard implements CanActivate {
     const user: User = await this.prismaService.user.findUnique({
       where: { idx: request.body.user },
     });
+    console.log(user);
     if (!user) {
       return false;
     }

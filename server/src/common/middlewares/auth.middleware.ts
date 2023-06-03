@@ -29,13 +29,14 @@ export class AuthMiddleware implements NestMiddleware {
         TOKEN.validateRefreshToken(REFRESH_TOKEN),
       ],
     );
-    if (!RESULT_ACCESS.verify && RESULT_REFRESH.verify) {
+    if (!RESULT_ACCESS.verify && !RESULT_REFRESH.verify) {
       throw new UnauthorizedException();
     }
     if (!RESULT_ACCESS.verify) {
       request.body.accessToken = await TOKEN.createAccessToken(RESULT_REFRESH);
       request.body.user = RESULT_REFRESH.idx;
       next();
+      return;
     }
     if (!RESULT_REFRESH.verify) {
       request.body.refreshToken = await TOKEN.createRefreshToken(RESULT_ACCESS);
