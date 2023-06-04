@@ -9,14 +9,18 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { TodoResponseDTO } from 'src/@types/todo-response.interface';
+import { TodoGuard } from 'src/modules/todo/todo.guard';
 import { TodoService } from 'src/modules/todo/todo.service';
 
 @Controller('todo')
+@UseGuards(TodoGuard)
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
+  @HttpCode(HttpStatus.OK)
   @Get()
   public async getList(
     @Body('user', ParseIntPipe) userIdx: number,
@@ -30,6 +34,7 @@ export class TodoController {
     };
   }
 
+  @HttpCode(HttpStatus.OK)
   @Get(':idx')
   public async getOne(
     @Param('idx', ParseIntPipe) todoIdx: number,
