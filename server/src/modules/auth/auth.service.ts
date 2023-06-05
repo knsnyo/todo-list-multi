@@ -5,13 +5,20 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { compare, genSalt, hash } from 'bcrypt';
 import { PrismaService } from 'src/common/prisma.service';
+import { Header } from 'src/common/utils/header';
+import { Token } from 'src/common/utils/token';
+import { TokenResultDTO } from 'src/modules/auth/dtos/token-result.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
+    private readonly configService: ConfigService,
+    private readonly jwtService: JwtService,
     @Inject(PrismaService) private readonly prismaService: PrismaService,
   ) {}
 
@@ -53,5 +60,28 @@ export class AuthService {
         password: hashed,
       },
     });
+  }
+
+  public async auto(HEADER: Header) {
+    const TOKEN: Token = new Token(this.configService, this.jwtService);
+    const [ACCESS_TOKEN, REFRESH_TOKEN]: string[] = await Promise.all([
+      HEADER.getAccessToken(),
+      HEADER.getRefreshToken(),
+    ]);
+    const [RESULT_ACCESS, RESULT_REFRESH]: TokenResultDTO[] = await Promise.all(
+      [
+        TOKEN.validateAccessToken(ACCESS_TOKEN),
+        TOKEN.validateRefreshToken(REFRESH_TOKEN),
+      ],
+    );
+    if (!RESULT_ACCESS.verify && !RESULT_REFRESH.verify) {
+      throw new UnauthorizedException();
+    }
+    if (!RESULT_ACCESS.verify) {
+      return await TOKEN.createAccessToken(RESULT_REFRESH);
+    }
+    if (!RESULT_REFRESH.verify) {
+      return await TOKEN.createRefreshToken(RESULT_ACCESS);
+    }
   }
 }

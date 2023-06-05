@@ -1,15 +1,20 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   HttpStatus,
   Inject,
   Post,
+  Req,
+  Res,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
+import { Request, Response } from 'express';
 import { ITokens } from 'src/@types/tokens.interface';
+import { Header } from 'src/common/utils/header';
 import { Token } from 'src/common/utils/token';
 import { AuthService } from 'src/modules/auth/auth.service';
 
@@ -48,5 +53,12 @@ export class AuthController {
   ): Promise<void> {
     await this.authService.isConflict(id);
     await this.authService.createUser(user);
+  }
+
+  @HttpCode(HttpStatus.OK)
+  @Get('signin')
+  public async auto(@Req() request: Request, @Res() response: Response) {
+    const HEADER: Header = new Header(request, response);
+    return await this.authService.auto(HEADER);
   }
 }
