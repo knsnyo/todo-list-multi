@@ -11,7 +11,7 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { TodoResponseDTO } from 'src/@types/todo-response.interface';
+import { ITodoResponse } from 'src/@types/todo-response.interface';
 import { TodoGuard } from 'src/modules/todo/todo.guard';
 import { TodoService } from 'src/modules/todo/todo.service';
 
@@ -26,7 +26,7 @@ export class TodoController {
     @Body('user', ParseIntPipe) userIdx: number,
     @Body('accessToken') accessToken?: string,
     @Body('refreshToken') refreshToken?: string,
-  ): Promise<TodoResponseDTO> {
+  ): Promise<ITodoResponse> {
     return {
       todos: await this.todoService.getList(userIdx),
       accessToken: accessToken,
@@ -40,7 +40,7 @@ export class TodoController {
     @Param('idx', ParseIntPipe) todoIdx: number,
     @Body('accessToken') accessToken?: string,
     @Body('refreshToken') refreshToken?: string,
-  ): Promise<TodoResponseDTO> {
+  ): Promise<ITodoResponse> {
     return {
       todo: await this.todoService.getOne(todoIdx),
       accessToken: accessToken,
@@ -55,7 +55,7 @@ export class TodoController {
     @Body('memo') memo: string,
     @Body('accessToken') accessToken?: string,
     @Body('refreshToken') refreshToken?: string,
-  ): Promise<TodoResponseDTO> {
+  ): Promise<ITodoResponse> {
     await this.todoService.createTodo({ user: userIdx, memo: memo });
     return {
       accessToken: accessToken,
@@ -71,7 +71,7 @@ export class TodoController {
     @Param('idx', ParseIntPipe) todoIdx: number,
     @Body('accessToken') accessToken?: string,
     @Body('refreshToken') refreshToken?: string,
-  ): Promise<TodoResponseDTO> {
+  ): Promise<ITodoResponse> {
     await this.todoService.isOwner(userIdx, todoIdx);
     await this.todoService.updateTodo(todoIdx, { user: userIdx, memo: memo });
     return {
@@ -87,7 +87,7 @@ export class TodoController {
     @Param('idx', ParseIntPipe) todoIdx: number,
     @Body('accessToken') accessToken?: string,
     @Body('refreshToken') refreshToken?: string,
-  ): Promise<TodoResponseDTO> {
+  ): Promise<ITodoResponse> {
     await this.todoService.isOwner(userIdx, todoIdx);
     await this.todoService.deleteTodo(todoIdx);
     return {

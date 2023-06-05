@@ -36,7 +36,7 @@ export class AuthService {
   }
 
   public async isConflict(id: string): Promise<void> {
-    const find: User = await this.prismaService.user.findUnique({
+    const find: User = await this.prismaService.user.findFirst({
       where: { id: id },
     });
     if (find) {

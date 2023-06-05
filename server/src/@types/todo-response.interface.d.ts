@@ -1,6 +1,6 @@
 import { Todo } from '@prisma/client';
 
-export class TodoResponseDTO {
+export interface ITodoResponse {
   todos?: Todo[];
   todo?: Todo;
   accessToken?: string;

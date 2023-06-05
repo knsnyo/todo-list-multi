@@ -43,8 +43,8 @@ export class AuthController {
   @HttpCode(HttpStatus.CREATED)
   @Post('signup')
   public async signup(
-    @Body('id') id: string,
     @Body() user: User,
+    @Body('id') id: string,
   ): Promise<void> {
     await this.authService.isConflict(id);
     await this.authService.createUser(user);
