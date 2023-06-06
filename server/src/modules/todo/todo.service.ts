@@ -1,6 +1,6 @@
 import { ForbiddenException, Injectable } from '@nestjs/common';
 import { Todo } from '@prisma/client';
-import { PrismaService } from 'src/common/prisma.service';
+import { PrismaService } from 'src/common/services/prisma.service';
 import { TodoFormDTO } from 'src/modules/todo/dto/todo-form.dto';
 
 @Injectable()

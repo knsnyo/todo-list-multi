@@ -1,7 +1,7 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { AuthMiddleware } from 'src/common/middlewares/auth.middleware';
-import { PrismaService } from 'src/common/prisma.service';
+import { PrismaService } from 'src/common/services/prisma.service';
 import { TodoController } from 'src/modules/todo/todo.controller';
 import { TodoService } from './todo.service';
 

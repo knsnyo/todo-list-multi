@@ -9,7 +9,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { compare, genSalt, hash } from 'bcrypt';
-import { PrismaService } from 'src/common/prisma.service';
+import { PrismaService } from 'src/common/services/prisma.service';
 import { Header } from 'src/common/utils/header';
 import { Token } from 'src/common/utils/token';
 import { TokenResultDTO } from 'src/modules/auth/dtos/token-result.dto';

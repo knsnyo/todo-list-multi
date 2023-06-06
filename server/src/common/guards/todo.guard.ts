@@ -1,7 +1,7 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { User } from '@prisma/client';
 import { Request } from 'express';
-import { PrismaService } from 'src/common/prisma.service';
+import { PrismaService } from 'src/common/services/prisma.service';
 
 @Injectable()
 export class TodoGuard implements CanActivate {

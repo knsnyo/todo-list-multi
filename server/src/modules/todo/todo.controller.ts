@@ -10,13 +10,16 @@ import {
   Post,
   Put,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { ITodoResponse } from 'src/@types/todo-response.interface';
-import { TodoGuard } from 'src/modules/todo/todo.guard';
+import { TodoGuard } from 'src/common/guards/todo.guard';
+import { TokenInterceptor } from 'src/common/interceptors/token.interceptor';
 import { TodoService } from 'src/modules/todo/todo.service';
 
 @Controller('todo')
 @UseGuards(TodoGuard)
+@UseInterceptors(TokenInterceptor)
 export class TodoController {
   constructor(private readonly todoService: TodoService) {}
 
@@ -24,13 +27,9 @@ export class TodoController {
   @Get()
   public async getList(
     @Body('user', ParseIntPipe) userIdx: number,
-    @Body('accessToken') accessToken?: string,
-    @Body('refreshToken') refreshToken?: string,
   ): Promise<ITodoResponse> {
     return {
       todos: await this.todoService.getList(userIdx),
-      accessToken: accessToken,
-      refreshToken: refreshToken,
     };
   }
 
@@ -38,13 +37,9 @@ export class TodoController {
   @Get(':idx')
   public async getOne(
     @Param('idx', ParseIntPipe) todoIdx: number,
-    @Body('accessToken') accessToken?: string,
-    @Body('refreshToken') refreshToken?: string,
   ): Promise<ITodoResponse> {
     return {
       todo: await this.todoService.getOne(todoIdx),
-      accessToken: accessToken,
-      refreshToken: refreshToken,
     };
   }
 
@@ -53,14 +48,8 @@ export class TodoController {
   public async createTodo(
     @Body('user', ParseIntPipe) userIdx: number,
     @Body('memo') memo: string,
-    @Body('accessToken') accessToken?: string,
-    @Body('refreshToken') refreshToken?: string,
-  ): Promise<ITodoResponse> {
+  ): Promise<void> {
     await this.todoService.createTodo({ user: userIdx, memo: memo });
-    return {
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    };
   }
 
   @HttpCode(HttpStatus.CREATED)
@@ -69,15 +58,9 @@ export class TodoController {
     @Body('user', ParseIntPipe) userIdx: number,
     @Body('memo') memo: string,
     @Param('idx', ParseIntPipe) todoIdx: number,
-    @Body('accessToken') accessToken?: string,
-    @Body('refreshToken') refreshToken?: string,
-  ): Promise<ITodoResponse> {
+  ): Promise<void> {
     await this.todoService.isOwner(userIdx, todoIdx);
     await this.todoService.updateTodo(todoIdx, { user: userIdx, memo: memo });
-    return {
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    };
   }
 
   @HttpCode(HttpStatus.NO_CONTENT)
@@ -85,14 +68,8 @@ export class TodoController {
   public async deleteTodo(
     @Body('user', ParseIntPipe) userIdx: number,
     @Param('idx', ParseIntPipe) todoIdx: number,
-    @Body('accessToken') accessToken?: string,
-    @Body('refreshToken') refreshToken?: string,
-  ): Promise<ITodoResponse> {
+  ): Promise<void> {
     await this.todoService.isOwner(userIdx, todoIdx);
     await this.todoService.deleteTodo(todoIdx);
-    return {
-      accessToken: accessToken,
-      refreshToken: refreshToken,
-    };
   }
 }

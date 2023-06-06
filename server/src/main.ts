@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { HttpExceptionFilter } from 'src/common/http-exception.filter';
+import { HttpExceptionFilter } from 'src/common/filters/http-exception.filter';
 import { MainModule } from 'src/main.module';
 
 async function main() {
