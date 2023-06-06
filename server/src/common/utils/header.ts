@@ -1,5 +1,6 @@
 import { UnauthorizedException } from '@nestjs/common';
 import { Request, Response } from 'express';
+import { ITokens } from 'src/@types/tokens.interface';
 
 export class Header {
   constructor(
@@ -21,25 +22,35 @@ export class Header {
     });
   }
 
-  public async getAccessToken(): Promise<string> {
+  public async setAllTokens({
+    accessToken,
+    refreshToken,
+  }: ITokens): Promise<void> {
+    await Promise.all([
+      this.setAccessToken(accessToken),
+      this.setRefreshToken(refreshToken),
+    ]);
+  }
+
+  private async getAccessToken(): Promise<string> {
     return new Promise((resolve, reject) => {
-      const AUTHORIZATION: string = this.request.headers.authorization;
-      if (!AUTHORIZATION) {
+      const authorization: string = this.request.headers.authorization;
+      if (!authorization) {
         reject(new UnauthorizedException());
       }
-      const tokenParts: string[] = AUTHORIZATION.split(' ');
+      const tokenParts: string[] = authorization.split(' ');
       if (tokenParts.length !== 2 || tokenParts[0].toLowerCase() !== 'bearer') {
         reject(new UnauthorizedException());
       }
-      const ACCESS_TOKEN: string = tokenParts[1];
-      if (!ACCESS_TOKEN) {
+      const accessToken: string = tokenParts[1];
+      if (!accessToken) {
         reject(new UnauthorizedException());
       }
-      resolve(ACCESS_TOKEN);
+      resolve(accessToken);
     });
   }
 
-  public async getRefreshToken(): Promise<string> {
+  private async getRefreshToken(): Promise<string> {
     return new Promise((resolve, reject) => {
       const setCookieHeader: string[] = this.request.headers['set-cookie'];
       if (!setCookieHeader || setCookieHeader.length === 0) {
@@ -51,13 +62,22 @@ export class Header {
       if (!refreshTokenCookie) {
         reject(new UnauthorizedException());
       }
-      const REFRESH_TOKEN: string = refreshTokenCookie
+      const refreshToken: string = refreshTokenCookie
         .split('=')[1]
         .split(';')[0];
-      if (!REFRESH_TOKEN) {
+      if (!refreshToken) {
         reject(new UnauthorizedException());
       }
-      resolve(REFRESH_TOKEN);
+      resolve(refreshToken);
     });
+  }
+
+  public async getAllTokens(): Promise<ITokens> {
+    const [accessToken, refreshToken] = await Promise.all([
+      this.getAccessToken(),
+      this.getRefreshToken(),
+    ]);
+
+    return { accessToken, refreshToken };
   }
 }

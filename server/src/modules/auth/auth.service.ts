@@ -64,24 +64,19 @@ export class AuthService {
 
   public async auto(HEADER: Header) {
     const TOKEN: Token = new Token(this.configService, this.jwtService);
-    const [ACCESS_TOKEN, REFRESH_TOKEN]: string[] = await Promise.all([
-      HEADER.getAccessToken(),
-      HEADER.getRefreshToken(),
+    const { accessToken, refreshToken } = await HEADER.getAllTokens();
+    const [resultAccess, resultRefresh]: TokenResultDTO[] = await Promise.all([
+      TOKEN.validateAccessToken(accessToken),
+      TOKEN.validateRefreshToken(refreshToken),
     ]);
-    const [RESULT_ACCESS, RESULT_REFRESH]: TokenResultDTO[] = await Promise.all(
-      [
-        TOKEN.validateAccessToken(ACCESS_TOKEN),
-        TOKEN.validateRefreshToken(REFRESH_TOKEN),
-      ],
-    );
-    if (!RESULT_ACCESS.verify && !RESULT_REFRESH.verify) {
+    if (!resultAccess.verify && !resultRefresh.verify) {
       throw new UnauthorizedException();
     }
-    if (!RESULT_ACCESS.verify) {
-      return await TOKEN.createAccessToken(RESULT_REFRESH);
+    if (!resultAccess.verify) {
+      return await TOKEN.createAccessToken(resultRefresh);
     }
-    if (!RESULT_REFRESH.verify) {
-      return await TOKEN.createRefreshToken(RESULT_ACCESS);
+    if (!resultRefresh.verify) {
+      return await TOKEN.createRefreshToken(resultAccess);
     }
   }
 }

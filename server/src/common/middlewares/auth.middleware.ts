@@ -19,29 +19,27 @@ export class AuthMiddleware implements NestMiddleware {
   async use(request: Request, response: Response, next: NextFunction) {
     const HEADER: Header = new Header(request, response);
     const TOKEN: Token = new Token(this.configService, this.jwtService);
-    const [ACCESS_TOKEN, REFRESH_TOKEN]: string[] = await Promise.all([
-      HEADER.getAccessToken(),
-      HEADER.getRefreshToken(),
-    ]);
-    const [RESULT_ACCESS, RESULT_REFRESH]: TokenResultDTO[] = await Promise.all(
-      [
-        TOKEN.validateAccessToken(ACCESS_TOKEN),
-        TOKEN.validateRefreshToken(REFRESH_TOKEN),
-      ],
-    );
-    if (!RESULT_ACCESS.verify && !RESULT_REFRESH.verify) {
+    const { accessToken, refreshToken } = await HEADER.getAllTokens();
+    const [validateAccess, validateRefresh]: TokenResultDTO[] =
+      await Promise.all([
+        TOKEN.validateAccessToken(accessToken),
+        TOKEN.validateRefreshToken(refreshToken),
+      ]);
+    if (!validateAccess.verify && !validateRefresh.verify) {
       throw new UnauthorizedException();
     }
-    if (!RESULT_ACCESS.verify) {
-      request.body.accessToken = await TOKEN.createAccessToken(RESULT_REFRESH);
-      request.body.user = RESULT_REFRESH.idx;
+    if (!validateAccess.verify) {
+      request.body.accessToken = await TOKEN.createAccessToken(validateRefresh);
+      request.body.user = validateRefresh.idx;
       next();
       return;
     }
-    if (!RESULT_REFRESH.verify) {
-      request.body.refreshToken = await TOKEN.createRefreshToken(RESULT_ACCESS);
+    if (!validateAccess.verify) {
+      request.body.refreshToken = await TOKEN.createRefreshToken(
+        validateAccess,
+      );
     }
-    request.body.user = RESULT_ACCESS.idx;
+    request.body.user = validateAccess.idx;
     next();
   }
 }

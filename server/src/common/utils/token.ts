@@ -1,5 +1,6 @@
 import { ConfigService } from '@nestjs/config';
 import { JwtService, JwtSignOptions } from '@nestjs/jwt';
+import { ITokens } from 'src/@types/tokens.interface';
 import { TokenPayloadDTO } from 'src/modules/auth/dtos/token-payload.dto';
 import { TokenResultDTO } from 'src/modules/auth/dtos/token-result.dto';
 
@@ -35,6 +36,15 @@ export class Token {
     const key: string = this.configService.get('JWT_REFRESH_KEY');
     const expiresIn: string = this.configService.get('JWT_REFRESH_EXPIRES');
     return this.create(payload, { secret: key, expiresIn: expiresIn });
+  }
+
+  public async createAllTokens(payload: TokenPayloadDTO): Promise<ITokens> {
+    const [accessToken, refreshToken] = await Promise.all([
+      this.createAccessToken(payload),
+      this.createRefreshToken(payload),
+    ]);
+
+    return { accessToken, refreshToken };
   }
 
   public async validateAccessToken(token: string): Promise<TokenResultDTO> {

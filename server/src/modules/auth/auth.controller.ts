@@ -35,14 +35,7 @@ export class AuthController {
     const db: User = await this.authService.findUserById(id);
     await this.authService.validate(user, db);
     const TOKEN: Token = new Token(this.configService, this.jwtService);
-    const [ACCESS_TOKEN, REFRESH_TOKEN]: string[] = await Promise.all([
-      TOKEN.createAccessToken(db),
-      TOKEN.createRefreshToken(db),
-    ]);
-    return {
-      accessToken: ACCESS_TOKEN,
-      refreshToken: REFRESH_TOKEN,
-    };
+    return await TOKEN.createAllTokens(db);
   }
 
   @HttpCode(HttpStatus.CREATED)
