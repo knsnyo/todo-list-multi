@@ -1,7 +1,7 @@
 import { css } from '@emotion/native';
 import { Pressable, Text } from 'react-native';
-import { BLACK, WHITE } from '../../styles/color';
-import { rem, vw } from '../../styles/size';
+import { BLACK, WHITE } from '../styles/color';
+import { rem, vw } from '../styles/size';
 
 type Props = {
   title: string;

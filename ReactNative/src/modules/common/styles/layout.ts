@@ -1,5 +1,5 @@
 import { css } from '@emotion/native';
-import { rem } from '../../styles/size';
+import { rem } from './size';
 
 export const layout = css`
   display: flex;

@@ -1,7 +1,7 @@
 import { css } from '@emotion/native';
 import { TextInput } from 'react-native';
-import { GREY } from '../../styles/color';
-import { rem, vw } from '../../styles/size';
+import { GREY } from '../styles/color';
+import { rem, vw } from '../styles/size';
 
 type Props = {
   value: string;

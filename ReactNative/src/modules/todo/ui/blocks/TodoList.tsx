@@ -1,3 +1,5 @@
+import { Text } from 'react-native';
+
 export function TodoList(): JSX.Element {
-  return <></>;
+  return <Text>SUCCESS</Text>;
 }

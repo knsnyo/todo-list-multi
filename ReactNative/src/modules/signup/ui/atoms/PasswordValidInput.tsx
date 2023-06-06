@@ -1,4 +1,4 @@
-import { Input } from '../../../common/ui/atoms/Input';
+import { Input } from '../../../common/components/Input';
 
 type Props = {
   value: string;

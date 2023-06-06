@@ -1,4 +1,4 @@
-import { Button } from '../../../common/ui/atoms/Button';
+import { Button } from '../../../common/components/Button';
 
 type ButtonType = {
   onPress: () => void;
