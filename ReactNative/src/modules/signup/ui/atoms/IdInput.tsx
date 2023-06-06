@@ -5,7 +5,7 @@ type Props = {
   onChangeText: (value: string) => void;
 };
 
-export function IdInput({ value, onChangeText }: Props) {
+export function IdInput({ value, onChangeText }: Props): JSX.Element {
   return (
     <Input
       value={value}

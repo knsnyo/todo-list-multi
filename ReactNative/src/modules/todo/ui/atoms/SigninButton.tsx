@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../../../@types/root-stack-param-list';
 import { Button } from '../../../common/ui/atoms/Button';
 
-export function SigninButton() {
+export function SigninButton(): JSX.Element {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 

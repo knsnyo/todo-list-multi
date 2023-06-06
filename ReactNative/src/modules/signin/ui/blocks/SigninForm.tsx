@@ -7,14 +7,16 @@ import { useMutation } from 'react-query';
 import { useDispatch } from 'react-redux';
 import { RootStackParamList } from '../../../../@types/root-stack-param-list';
 import { SigninFormType } from '../../../../@types/signin-form';
+import { ITokens } from '../../../../@types/tokens';
 import { signin } from '../../../common/redux/token.redux';
+import * as Keychain from '../../../common/storage/key-chain';
 import { rem, vw } from '../../../common/styles/size';
 import { requestSignin } from '../../services/signin.service';
 import { IdInput } from '../atoms/IdInput';
 import { PasswordInput } from '../atoms/PasswordInput';
 import { SigninButton } from '../atoms/SigninButton';
 
-export function SigninForm() {
+export function SigninForm(): JSX.Element {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
@@ -23,8 +25,14 @@ export function SigninForm() {
   const mutation = useMutation(
     (formData: SigninFormType) => requestSignin(formData),
     {
-      onSuccess: (response) => {
+      onSuccess: async (response) => {
+        const { accessToken: ACCESS_TOKEN, refreshToken: REFRESH_TOKEN } =
+          response.data as ITokens;
         dispatch(signin(response.data));
+        await Promise.all([
+          Keychain.setAccessToken(ACCESS_TOKEN),
+          Keychain.setRefreshToken(REFRESH_TOKEN),
+        ]);
         navigation.pop();
       },
     },

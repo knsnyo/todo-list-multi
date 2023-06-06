@@ -13,7 +13,7 @@ import { PasswordInput } from '../atoms/PasswordInput';
 import { PasswordValidInput } from '../atoms/PasswordValidInput';
 import { SignupButton } from '../atoms/SignupButton';
 
-export function SignupForm() {
+export function SignupForm(): JSX.Element {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 

@@ -5,7 +5,7 @@ type Props = {
   onChangeText: (value: string) => void;
 };
 
-export function PasswordInput({ value, onChangeText }: Props) {
+export function PasswordInput({ value, onChangeText }: Props): JSX.Element {
   return (
     <Input
       value={value}
