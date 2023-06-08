@@ -1,36 +1,37 @@
 import { css } from '@emotion/native';
 import { useIsFocused } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ActivityIndicator, SafeAreaView } from 'react-native';
 import { useQuery } from 'react-query';
-import { resetAllTokens } from '../../../common/storage/key-chain';
 import { layout } from '../../../common/styles/layout';
 import { rem } from '../../../common/styles/size';
 import { requestGetTodoList } from '../../services/get-todo-list.service';
-import { SignoutButton } from '../atoms/SignoutButton';
+import { FloatingButton } from '../atoms/FloatingButton';
+import { AddModal } from '../blocks/AddModal';
 import { AuthForm } from '../blocks/AuthForm';
 import { TodoList } from '../blocks/TodoList';
 
 export function Todo(): JSX.Element {
+  const [modal, setModal] = useState<boolean>(false);
+
   const isFocused = useIsFocused();
 
-  const { isLoading, error, data, refetch } = useQuery('getTodo', () =>
-    requestGetTodoList(),
+  const { isLoading, error, data, refetch } = useQuery(
+    'getTodo',
+    () => requestGetTodoList(),
+    {
+      retry: 0,
+    },
   );
-
-  const buttonHandler = async () => {
-    await resetAllTokens();
-    refetch();
-  };
 
   useEffect(() => {
     refetch();
-  }, [isFocused]);
+  }, [isFocused, refetch, data]);
 
   if (isLoading) {
     return (
       <SafeAreaView style={notAuthLayout}>
-        <ActivityIndicator />
+        <ActivityIndicator size="large" />
       </SafeAreaView>
     );
   }
@@ -45,8 +46,9 @@ export function Todo(): JSX.Element {
 
   return (
     <SafeAreaView style={authLayout}>
-      <TodoList />
-      <SignoutButton onPress={() => buttonHandler()} />
+      <TodoList todos={data!.todos} />
+      <FloatingButton refetch={refetch} setModal={() => setModal(!modal)} />
+      <AddModal visible={modal} setVisible={() => setModal(!modal)} />
     </SafeAreaView>
   );
 }
