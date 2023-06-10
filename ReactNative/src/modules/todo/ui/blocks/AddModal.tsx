@@ -1,6 +1,7 @@
 import { css } from '@emotion/native';
 import { useState } from 'react';
 import { Modal, TextInput, View } from 'react-native';
+import { ITodoForm } from '../../../../@types/todo-form';
 import { GREY, WHITE } from '../../../common/styles/color';
 import { rem, vw } from '../../../common/styles/size';
 import { ModalCancelButton } from '../atoms/ModalCancelButton';
@@ -9,9 +10,10 @@ import { ModalOkButton } from '../atoms/ModalOkButton';
 type Props = {
   visible: boolean;
   setVisible: () => void;
+  addTodo: (form: ITodoForm) => void;
 };
 
-export function AddModal({ visible, setVisible }: Props): JSX.Element {
+export function AddModal({ visible, setVisible, addTodo }: Props): JSX.Element {
   const [text, setText] = useState<string>('');
   return (
     <Modal
@@ -20,15 +22,18 @@ export function AddModal({ visible, setVisible }: Props): JSX.Element {
       visible={visible}
       onRequestClose={setVisible}
     >
-      <View style={modalCss.container}>
-        <View style={modalCss.modalBody}>
-          <TextInput
-            style={modalCss.textInput}
-            value={text}
-            onChangeText={setText}
-          />
-          <View style={modalCss.buttonGroup}>
-            <ModalOkButton onPress={() => {}} />
+      <View style={styles.container}>
+        <View style={styles.modal}>
+          <View style={styles.modalBody}>
+            <TextInput
+              style={styles.textInput}
+              value={text}
+              onChangeText={setText}
+              placeholder="할일을 입력하세요."
+            />
+          </View>
+          <View style={styles.modalBottom}>
+            <ModalOkButton onPress={() => addTodo({ memo: text })} />
             <ModalCancelButton onPress={setVisible} />
           </View>
         </View>
@@ -37,34 +42,43 @@ export function AddModal({ visible, setVisible }: Props): JSX.Element {
   );
 }
 
-const modalCss = {
+const styles = {
   container: css`
     flex: 1;
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
-    width: ${vw(100)};
   `,
-  modalBody: css`
+  modal: css`
     background-color: ${WHITE};
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     border-top-width: ${rem(0.1)};
     border-color: ${GREY};
-    padding: ${rem(1)};
-    box-shadow: 0 ${rem(-0.4)} ${rem(0.2)} ${GREY};
-    height: ${rem(20)};
+    border-top-left-radius: ${rem(2)};
+    border-top-right-radius: ${rem(2)};
+    box-shadow: 0 ${rem(-0.4)} ${rem(0.4)} ${GREY};
+    height: ${rem(12)};
+    width: ${vw(100)};
   `,
   textInput: css`
     width: ${vw(90)};
-    border: ${rem(0.1)} solid ${GREY};
-    padding: ${rem(2)};
+    padding: ${rem(1)};
+    text-align: center;
   `,
-  buttonGroup: css`
+  modalBody: css`
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+  `,
+  modalBottom: css`
+    border-top-width: ${rem(0.1)};
+    border-top-color: ${GREY};
     display: flex;
+    flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    flex-direction: row;
     width: ${vw(100)};
+    padding: ${rem(1)};
   `,
 };

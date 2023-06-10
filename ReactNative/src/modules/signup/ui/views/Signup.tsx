@@ -14,7 +14,7 @@ export function Signup(): JSX.Element {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const mutation = useMutation(
+  const signup = useMutation(
     (formData: ISignupForm) => requestSignup(formData),
     { onSuccess: () => navigation.pop() },
   );
@@ -37,7 +37,7 @@ export function Signup(): JSX.Element {
       <SignupForm
         formData={formData}
         formHandler={formHandler}
-        onPress={() => mutation.mutate(formData)}
+        onPress={() => signup.mutate(formData)}
       />
     </SafeAreaView>
   );

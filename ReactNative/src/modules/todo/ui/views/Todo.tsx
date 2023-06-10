@@ -2,10 +2,14 @@ import { css } from '@emotion/native';
 import { useIsFocused } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { ActivityIndicator, SafeAreaView } from 'react-native';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
+import { ITodoForm } from '../../../../@types/todo-form';
 import { layout } from '../../../common/styles/layout';
 import { rem } from '../../../common/styles/size';
+import { requestCreateTodo } from '../../services/create-todo.service';
+import { requestDeleteTodo } from '../../services/delete-todo.service';
 import { requestGetTodoList } from '../../services/get-todo-list.service';
+import { requestUpdateTodo } from '../../services/update-todo.service';
 import { FloatingButton } from '../atoms/FloatingButton';
 import { AddModal } from '../blocks/AddModal';
 import { AuthForm } from '../blocks/AuthForm';
@@ -23,6 +27,26 @@ export function Todo(): JSX.Element {
       retry: 0,
     },
   );
+
+  const createTodo = useMutation(
+    (formData: ITodoForm) => requestCreateTodo(formData),
+    {
+      onSuccess: () => {
+        setModal(false);
+        refetch();
+      },
+    },
+  );
+
+  const updateTodo = useMutation(
+    ({ idx, formData }: { idx: number; formData: ITodoForm }) =>
+      requestUpdateTodo(idx, formData),
+    { onSuccess: () => refetch() },
+  );
+
+  const deleteTodo = useMutation((idx: number) => requestDeleteTodo(idx), {
+    onSuccess: () => refetch(),
+  });
 
   useEffect(() => {
     refetch();
@@ -48,7 +72,11 @@ export function Todo(): JSX.Element {
     <SafeAreaView style={authLayout}>
       <TodoList todos={data!.todos} />
       <FloatingButton refetch={refetch} setModal={() => setModal(!modal)} />
-      <AddModal visible={modal} setVisible={() => setModal(!modal)} />
+      <AddModal
+        visible={modal}
+        setVisible={() => setModal(!modal)}
+        addTodo={(formData: ITodoForm) => createTodo.mutate(formData)}
+      />
     </SafeAreaView>
   );
 }

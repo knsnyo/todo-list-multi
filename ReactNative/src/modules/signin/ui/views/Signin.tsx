@@ -14,7 +14,7 @@ export function Signin(): JSX.Element {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-  const mutation = useMutation(
+  const signin = useMutation(
     (formData: ISigninForm) => requestSignin(formData),
     { onSuccess: async () => navigation.pop() },
   );
@@ -36,7 +36,7 @@ export function Signin(): JSX.Element {
       <SigninForm
         formData={formData}
         formHandler={formHandler}
-        onPress={() => mutation.mutate(formData)}
+        onPress={() => signin.mutate(formData)}
       />
     </SafeAreaView>
   );

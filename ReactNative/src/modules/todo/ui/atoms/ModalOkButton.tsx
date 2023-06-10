@@ -1,7 +1,7 @@
 import { css } from '@emotion/native';
 import { Pressable, Text } from 'react-native';
-import { BLACK, WHITE } from '../../../common/styles/color';
-import { rem, vw } from '../../../common/styles/size';
+import { BLACK } from '../../../common/styles/color';
+import { rem } from '../../../common/styles/size';
 
 type Props = {
   onPress: () => void;
@@ -17,16 +17,12 @@ export function ModalOkButton({ onPress }: Props): JSX.Element {
 
 const styles = {
   container: css`
-    background-color: ${BLACK};
-    border-radius: ${rem(4)};
     display: flex;
     justify-content: center;
     align-items: center;
-    width: ${vw(40)};
-    padding: ${rem(2)};
   `,
   text: css`
-    color: ${WHITE};
+    color: ${BLACK};
     font-weight: bold;
     font-size: ${rem(2)};
   `,

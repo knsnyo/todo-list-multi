@@ -23,5 +23,6 @@ export const todoCss = css`
   border-radius: ${rem(0.8)};
   margin-top: ${rem(1)};
   margin-bottom: ${rem(1)};
-  box-shadow: 0 ${rem(0.4)} ${rem(0.2)} ${GREY};
 `;
+
+//  box-shadow: 0 ${rem(0.4)} ${rem(0.2)} ${GREY};
