@@ -10,9 +10,6 @@ import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { compare, genSalt, hash } from 'bcrypt';
 import { PrismaService } from 'src/common/services/prisma.service';
-import { Header } from 'src/common/utils/header';
-import { Token } from 'src/common/utils/token';
-import { TokenResultDTO } from 'src/modules/auth/dtos/token-result.dto';
 
 @Injectable()
 export class AuthService {
@@ -60,23 +57,5 @@ export class AuthService {
         password: hashed,
       },
     });
-  }
-
-  public async auto(HEADER: Header) {
-    const TOKEN: Token = new Token(this.configService, this.jwtService);
-    const { accessToken, refreshToken } = await HEADER.getAllTokens();
-    const [resultAccess, resultRefresh]: TokenResultDTO[] = await Promise.all([
-      TOKEN.validateAccessToken(accessToken),
-      TOKEN.validateRefreshToken(refreshToken),
-    ]);
-    if (!resultAccess.verify && !resultRefresh.verify) {
-      throw new UnauthorizedException();
-    }
-    if (!resultAccess.verify) {
-      return await TOKEN.createAccessToken(resultRefresh);
-    }
-    if (!resultRefresh.verify) {
-      return await TOKEN.createRefreshToken(resultAccess);
-    }
   }
 }

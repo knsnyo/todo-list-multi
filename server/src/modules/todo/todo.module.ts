@@ -11,6 +11,6 @@ import { TodoService } from './todo.service';
 })
 export class TodoModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
-    consumer.apply(AuthMiddleware).forRoutes('todo');
+    consumer.apply(AuthMiddleware).forRoutes('todos');
   }
 }

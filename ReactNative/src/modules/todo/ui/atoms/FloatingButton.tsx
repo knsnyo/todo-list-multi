@@ -5,10 +5,9 @@ import { BLACK, WHITE } from '../../../common/styles/color';
 
 type Props = {
   refetch: () => void;
-  setModal: () => void;
 };
 
-export function FloatingButton({ refetch, setModal }: Props): JSX.Element {
+export function FloatingButton({ refetch }: Props): JSX.Element {
   const actions = [
     {
       text: '추가',
@@ -28,7 +27,6 @@ export function FloatingButton({ refetch, setModal }: Props): JSX.Element {
 
   const onPressItem = async (name: string | undefined) => {
     if ('ADD' === name) {
-      setModal();
     }
     if ('SIGNOUT' === name) {
       await resetAllTokens().then(() => refetch());

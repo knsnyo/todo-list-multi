@@ -60,4 +60,11 @@ export class Token {
       resolve(this.validate(token, key));
     });
   }
+
+  public async validateAllTokens(tokens: ITokens): Promise<TokenResultDTO[]> {
+    return await Promise.all([
+      this.validateAccessToken(tokens.accessToken),
+      this.validateRefreshToken(tokens.refreshToken),
+    ]);
+  }
 }

@@ -17,7 +17,7 @@ import { TodoGuard } from 'src/common/guards/todo.guard';
 import { TokenInterceptor } from 'src/common/interceptors/token.interceptor';
 import { TodoService } from 'src/modules/todo/todo.service';
 
-@Controller('todo')
+@Controller('todos')
 @UseGuards(TodoGuard)
 @UseInterceptors(TokenInterceptor)
 export class TodoController {
