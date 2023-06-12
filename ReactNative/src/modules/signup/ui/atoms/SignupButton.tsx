@@ -1,9 +1,28 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useMutation } from 'react-query';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootStackParamList } from '../../../../@types/root-stack-param-list';
+import { ISignupForm } from '../../../../@types/signup-form';
 import { Button } from '../../../common/components/Button';
+import { RootState } from '../../../common/redux';
+import { init } from '../../redux/signup-redux';
+import { requestSignup } from '../../services/signup.service';
 
-type ButtonType = {
-  onPress: () => void;
-};
+export function SignupButton(): JSX.Element {
+  const signupForm = useSelector((state: RootState) => state.signup);
+  const dispatch = useDispatch();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
 
-export function SignupButton({ onPress }: ButtonType): JSX.Element {
-  return <Button title="회원가입" onPress={onPress} />;
+  const signup = useMutation(
+    (formData: ISignupForm) => requestSignup(formData),
+    {
+      onSuccess: () => {
+        dispatch(init());
+        navigation.pop();
+      },
+    },
+  );
+  return <Button title="회원가입" onPress={() => signup.mutate(signupForm)} />;
 }

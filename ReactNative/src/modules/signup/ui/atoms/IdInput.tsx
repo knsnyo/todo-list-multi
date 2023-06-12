@@ -1,15 +1,16 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { Input } from '../../../common/components/Input';
+import { RootState } from '../../../common/redux';
+import { changeId } from '../../redux/signup-redux';
 
-type Props = {
-  value: string;
-  onChangeText: (value: string) => void;
-};
+export function IdInput(): JSX.Element {
+  const id = useSelector((state: RootState) => state.signup.id);
+  const dispatch = useDispatch();
 
-export function IdInput({ value, onChangeText }: Props): JSX.Element {
   return (
     <Input
-      value={value}
-      onChangeText={onChangeText}
+      value={id}
+      onChangeText={(text) => dispatch(changeId(text))}
       placeholder="아이디"
       secureTextEntry={false}
     />
