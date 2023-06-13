@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-
-import '../modules/signin/ui/views/signin.dart';
-import '../modules/signup/ui/views/signup.dart';
-import '../modules/todo/ui/views/create_todo.dart';
-import '../modules/todo/ui/views/todo.dart';
-import '../modules/todo/ui/views/todos.dart';
-import '../modules/todo/ui/views/update_todo.dart';
+import 'package:flutter_todo/src/modules/signin/views/signin.dart';
+import 'package:flutter_todo/src/modules/signup/views/signup.dart';
+import 'package:flutter_todo/src/modules/todo/views/create_todo.dart';
+import 'package:flutter_todo/src/modules/todo/views/todo.dart';
+import 'package:flutter_todo/src/modules/todo/views/todos.dart';
+import 'package:flutter_todo/src/modules/todo/views/update_todo.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final ThemeData theme = ThemeData();
 
-class Navigation extends StatelessWidget {
+class Navigation extends HookConsumerWidget {
   const Navigation({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp(
       builder: (BuildContext context, Widget? child) => MediaQuery(
         data: MediaQuery.of(context).copyWith(textScaleFactor: 1),

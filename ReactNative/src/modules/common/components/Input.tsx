@@ -31,7 +31,7 @@ const style = {
   textInput: css`
     border-bottom-width: ${rem(0.15)};
     border-bottom-color: ${GREY};
-    width: ${vw(90)};
+    width: ${vw(70)};
     padding: ${rem(1)};
     font-size: ${rem(1.5)};
     text-align: center;
