@@ -1,5 +1,8 @@
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { FloatingAction } from 'react-native-floating-action';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { StackParamList } from '../../../../@types/navigation';
 import { resetAllTokens } from '../../../common/storage/key-chain';
 import { BLACK, WHITE } from '../../../common/styles/color';
 
@@ -8,6 +11,7 @@ type Props = {
 };
 
 export function FloatingButton({ refetch }: Props): JSX.Element {
+  const navigation = useNavigation<NativeStackNavigationProp<StackParamList>>();
   const actions = [
     {
       text: '추가',
@@ -27,6 +31,7 @@ export function FloatingButton({ refetch }: Props): JSX.Element {
 
   const onPressItem = async (name: string | undefined) => {
     if ('ADD' === name) {
+      navigation.push('/create');
     }
     if ('SIGNOUT' === name) {
       await resetAllTokens().then(() => refetch());

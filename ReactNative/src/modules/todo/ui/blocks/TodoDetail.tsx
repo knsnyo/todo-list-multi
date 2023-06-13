@@ -3,7 +3,7 @@ import { Text, View } from 'react-native';
 import { ITodo } from '../../../../@types/todo';
 import { vh, vw } from '../../../common/styles/size';
 import { DeleteButton } from '../atoms/DeleteButton';
-import { UpdateButton } from '../atoms/UpdateButton';
+import { UpdateNavButton } from '../atoms/UpdateNavButton';
 
 export function TodoDetail({ todo }: ITodo) {
   return (
@@ -12,7 +12,7 @@ export function TodoDetail({ todo }: ITodo) {
         <Text>{todo.memo}</Text>
       </View>
       <View style={style.buttonGroup}>
-        <UpdateButton />
+        <UpdateNavButton />
         <DeleteButton />
       </View>
     </View>

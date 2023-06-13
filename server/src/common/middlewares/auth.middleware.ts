@@ -34,7 +34,7 @@ export class AuthMiddleware implements NestMiddleware {
       next();
       return;
     }
-    if (!validateAccess.verify) {
+    if (!validateRefresh.verify) {
       request.body.refreshToken = await TOKEN.createRefreshToken(
         validateAccess,
       );

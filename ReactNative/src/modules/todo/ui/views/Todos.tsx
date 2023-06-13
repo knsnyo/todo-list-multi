@@ -1,6 +1,4 @@
 import { css } from '@emotion/native';
-import { useIsFocused } from '@react-navigation/native';
-import { useEffect } from 'react';
 import { ActivityIndicator, SafeAreaView, Text } from 'react-native';
 import { useQuery } from 'react-query';
 import { layout } from '../../../common/styles/layout';
@@ -10,7 +8,6 @@ import { NoAuth } from '../blocks/NoAuth';
 import { TodoList } from '../blocks/TodoList';
 
 export function Todos(): JSX.Element {
-  const isFocused = useIsFocused();
   const { isLoading, data, error, refetch } = useQuery(
     'getTodos',
     () => requestGetTodos(),
@@ -18,10 +15,6 @@ export function Todos(): JSX.Element {
       retry: 0,
     },
   );
-
-  useEffect(() => {
-    refetch();
-  }, [isFocused, refetch, data]);
 
   if (isLoading) {
     return (

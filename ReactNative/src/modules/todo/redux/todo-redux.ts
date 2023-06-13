@@ -6,7 +6,7 @@ const initialState: ITodoForm = {
 };
 
 const todoSlice = createSlice({
-  name: 'signin',
+  name: 'todo',
   initialState,
   reducers: {
     changeMemo: (state, action) => {

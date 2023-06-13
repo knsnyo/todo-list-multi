@@ -7,5 +7,7 @@ export async function requestUpdateTodo({
   memo,
 }: ITodoForm): Promise<void> {
   const AXIOS = await TokenAxios();
-  await AXIOS.put(`${TODO_URL}/${idx}`, memo);
+  await AXIOS.put(`${TODO_URL}/${idx}`, {
+    memo: memo,
+  });
 }

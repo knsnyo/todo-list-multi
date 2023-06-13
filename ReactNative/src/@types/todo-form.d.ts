@@ -1,5 +1,4 @@
 export interface ITodoForm {
-  idx?: number;
-  user?: number;
+  idx: number?;
   memo: string;
 }

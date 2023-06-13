@@ -1,7 +1,6 @@
 import { css } from '@emotion/native';
-import { RouteProp, useIsFocused, useRoute } from '@react-navigation/native';
-import { useEffect } from 'react';
-import { ActivityIndicator, SafeAreaView, Text, View } from 'react-native';
+import { RouteProp, useRoute } from '@react-navigation/native';
+import { ActivityIndicator, SafeAreaView, Text } from 'react-native';
 import { useQuery } from 'react-query';
 import { StackParamList } from '../../../../@types/navigation';
 import { layout } from '../../../common/styles/layout';
@@ -12,14 +11,9 @@ type TRouteProp = RouteProp<StackParamList, '/todo'>;
 
 export function Todo(): JSX.Element {
   const route = useRoute<TRouteProp>();
-  const isFocused = useIsFocused();
-  const { isLoading, error, data, refetch } = useQuery('getTodo', () =>
+  const { isLoading, error, data } = useQuery('getTodo', () =>
     requestGetTodo(route.params.idx),
   );
-
-  useEffect(() => {
-    refetch();
-  }, [isFocused, refetch, data]);
 
   if (isLoading) {
     return (
@@ -32,9 +26,7 @@ export function Todo(): JSX.Element {
   if (error) {
     return (
       <SafeAreaView style={centerLayout}>
-        <View>
-          <Text>ERROR</Text>
-        </View>
+        <Text>ERROR</Text>
       </SafeAreaView>
     );
   }
