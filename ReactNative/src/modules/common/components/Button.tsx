@@ -23,7 +23,7 @@ const styles = {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: ${vw(90)};
+    width: ${vw(70)};
     padding: ${rem(2)};
   `,
   text: css`
