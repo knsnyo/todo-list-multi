@@ -6,7 +6,7 @@ import { Signup } from '../modules/signup/ui/views/Signup';
 import { CreateTodo } from '../modules/todo/ui/views/CreateTodo';
 import { Todo } from '../modules/todo/ui/views/Todo';
 import { Todos } from '../modules/todo/ui/views/Todos';
-import { UpdateTodo } from '../modules/todo/ui/views/UpdateTo';
+import { UpdateTodo } from '../modules/todo/ui/views/UpdateTodo';
 import { ScreenOptions } from './style';
 
 const Stack = createNativeStackNavigator<StackParamList>();
