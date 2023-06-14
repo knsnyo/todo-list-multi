@@ -4,7 +4,6 @@ import { ISignupForm } from '../../../@types/signup-form';
 const initialState: ISignupForm = {
   id: '',
   password: '',
-  passwordValid: '',
 };
 
 const signupSlice = createSlice({
@@ -17,19 +16,14 @@ const signupSlice = createSlice({
     changePassword: (state, action) => {
       state.password = action.payload;
     },
-    changePasswordValid: (state, action) => {
-      state.passwordValid = action.payload;
-    },
     init: (state) => {
       state = {
         id: '',
         password: '',
-        passwordValid: '',
       };
     },
   },
 });
 
-export const { changeId, changePassword, changePasswordValid, init } =
-  signupSlice.actions;
+export const { changeId, changePassword, init } = signupSlice.actions;
 export default signupSlice;

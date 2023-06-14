@@ -5,8 +5,6 @@ import {
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { JwtService } from '@nestjs/jwt';
 import { User } from '@prisma/client';
 import { compare, genSalt, hash } from 'bcrypt';
 import { PrismaService } from 'src/common/services/prisma.service';
@@ -14,8 +12,6 @@ import { PrismaService } from 'src/common/services/prisma.service';
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly configService: ConfigService,
-    private readonly jwtService: JwtService,
     @Inject(PrismaService) private readonly prismaService: PrismaService,
   ) {}
 

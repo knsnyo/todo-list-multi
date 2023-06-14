@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/src/modules/signin/views/signin.dart';
-import 'package:flutter_todo/src/modules/signup/views/signup.dart';
+import 'package:flutter_todo/src/modules/signup/views/signup_view.dart';
 import 'package:flutter_todo/src/modules/todo/views/create_todo.dart';
 import 'package:flutter_todo/src/modules/todo/views/todo.dart';
 import 'package:flutter_todo/src/modules/todo/views/todos.dart';

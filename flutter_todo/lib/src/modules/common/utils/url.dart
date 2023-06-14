@@ -1,4 +1,4 @@
-const localhost = '192.168.0.21';
+const localhost = '10.32.7.242';
 
 const signinUrl = 'http://$localhost:3000/auth/signup';
 const signupUrl = 'http://$localhost:3000/auth/signin';
