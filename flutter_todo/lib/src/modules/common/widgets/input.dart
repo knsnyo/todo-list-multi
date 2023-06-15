@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_todo/src/modules/common/styles/size.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class Input extends HookConsumerWidget {
-  final controller = useTextEditingController();
   final String hint;
   final bool obscureText;
+  final void Function(String value) onChangeText;
 
-  Input({
+  const Input({
     super.key,
     required this.hint,
     required this.obscureText,
+    required this.onChangeText,
   });
 
   @override
@@ -19,7 +19,6 @@ class Input extends HookConsumerWidget {
     return SizedBox(
       width: vw(context, 70),
       child: TextField(
-        controller: controller,
         obscureText: obscureText,
         textAlign: TextAlign.center,
         decoration: InputDecoration(
@@ -43,6 +42,7 @@ class Input extends HookConsumerWidget {
             ),
           ),
         ),
+        onChanged: (value) => onChangeText(value),
       ),
     );
   }
