@@ -1,8 +1,8 @@
-class SignupModel {
+class SigninModel {
   final String id;
   final String password;
 
-  SignupModel({required this.id, required this.password});
+  SigninModel({required this.id, required this.password});
 
   Map<String, dynamic> toJson() => {
         "id": id,

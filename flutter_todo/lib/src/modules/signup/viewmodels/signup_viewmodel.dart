@@ -10,7 +10,7 @@ class SignupViewmodel extends ChangeNotifier {
   set changeId(String value) => id = value;
   set changePassword(String value) => password = value;
 
-  Future<bool> signUp() async {
+  Future<bool> signup() async {
     try {
       Response res =
           await requestSignup(SignupModel(id: id, password: password));
