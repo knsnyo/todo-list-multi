@@ -20,7 +20,6 @@ class SigninViewmodel extends ChangeNotifier {
       return true;
     } catch (error) {
       // error handling
-      debugPrint(error.toString());
       return false;
     }
   }

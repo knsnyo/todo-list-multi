@@ -8,15 +8,14 @@ class SigninButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final signinViewmodel = ref.watch(signinViewModelProvider);
+    final signinViewmodel = ref.watch(signinViewmodelProvider);
     return Button(
       onPress: () async {
         bool isSuccess = await signinViewmodel.signin();
         if (!isSuccess) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('로그인 실패')));
-          return;
-        }
+        } else {}
         return Navigator.of(context).pop();
       },
       text: '로그인',

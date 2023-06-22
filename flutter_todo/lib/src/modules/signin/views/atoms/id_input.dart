@@ -8,7 +8,7 @@ class IdInput extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final signinViewmodel = ref.watch(signinViewModelProvider);
+    final signinViewmodel = ref.watch(signinViewmodelProvider);
 
     return Input(
       hint: '아이디',

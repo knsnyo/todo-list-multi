@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_todo/src/modules/signin/views/ui/signin.dart';
 import 'package:flutter_todo/src/modules/signup/view/ui/signup.dart';
-import 'package:flutter_todo/src/modules/todo/views/create_todo.dart';
-import 'package:flutter_todo/src/modules/todo/views/todo.dart';
-import 'package:flutter_todo/src/modules/todo/views/todos.dart';
-import 'package:flutter_todo/src/modules/todo/views/update_todo.dart';
+import 'package:flutter_todo/src/modules/todo/views/ui/create_todo.dart';
+import 'package:flutter_todo/src/modules/todo/views/ui/todo.dart';
+import 'package:flutter_todo/src/modules/todo/views/ui/todos.dart';
+import 'package:flutter_todo/src/modules/todo/views/ui/update_todo.dart';
 
 final ThemeData theme = ThemeData();
 
