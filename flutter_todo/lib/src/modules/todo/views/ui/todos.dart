@@ -22,7 +22,7 @@ class Todos extends HookConsumerWidget {
             body: const Center(child: NoAuth()),
           );
         }
-        debugPrint(snapshot.data.toString());
+        debugPrint('view: ${snapshot.data}');
         List<TodoModel> todos = snapshot.data ?? [];
         if (todos.isEmpty) {
           return Scaffold(
