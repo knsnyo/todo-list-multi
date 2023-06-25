@@ -14,17 +14,14 @@ class TodoViewmodel extends ChangeNotifier {
 
   Future<List<TodoModel>> getTodos() async {
     Response response = await requestGetTodos();
-    List<TodoModel> todos = (response.data['todos'] as List<dynamic>)
+    return (response.data['todos'] as List<dynamic>)
         .map((json) => TodoModel.fromJson(json))
         .toList();
-
-    return todos;
   }
 
   Future<TodoModel> getTodo(int idx) async {
     Response response = await requestGetTodo(idx);
-    TodoModel todo = TodoModel.fromJson(response.data['todo']);
-    return todo;
+    return TodoModel.fromJson(response.data['todo']);
   }
 
   Future<Response> createTodo() async {

@@ -44,9 +44,9 @@ class UpdateTodo extends HookConsumerWidget {
                       ScaffoldMessenger.of(context)
                           .showSnackBar(SnackBar(content: Text('할일 수정 실패')));
                     }
-                    Navigator.of(context).pushNamedAndRemoveUntil(
-                        '/todo', (route) => route.isFirst,
-                        arguments: idx);
+                    Navigator.of(context)
+                        .pushNamedAndRemoveUntil('/todos', (route) => false);
+                    Navigator.of(context).pushNamed('/todo', arguments: idx);
                   },
                   text: '수정',
                 ),
