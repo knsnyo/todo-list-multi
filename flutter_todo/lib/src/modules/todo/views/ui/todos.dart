@@ -4,6 +4,7 @@ import 'package:flutter_todo/main.dart';
 import 'package:flutter_todo/src/modules/common/widgets/header.dart';
 import 'package:flutter_todo/src/modules/todo/models/todo_model.dart';
 import 'package:flutter_todo/src/modules/todo/views/atoms/floating_button.dart';
+import 'package:flutter_todo/src/modules/todo/views/atoms/todo_item.dart';
 import 'package:flutter_todo/src/modules/todo/views/blocks/no_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -22,7 +23,6 @@ class Todos extends HookConsumerWidget {
             body: const Center(child: NoAuth()),
           );
         }
-        debugPrint('view: ${snapshot.data}');
         List<TodoModel> todos = snapshot.data ?? [];
         if (todos.isEmpty) {
           return Scaffold(
@@ -36,7 +36,8 @@ class Todos extends HookConsumerWidget {
           appBar: Header(context: context),
           body: ListView.builder(
             itemCount: todos.length,
-            itemBuilder: (context, index) => Text(todos[index].memo),
+            itemBuilder: (context, index) =>
+                TodoItem(idx: todos[index].idx, text: todos[index].memo),
           ),
           floatingActionButtonLocation: ExpandableFab.location,
           floatingActionButton: const FloatingButton(),

@@ -35,11 +35,13 @@ class Navigation extends HookWidget {
           case '/todos':
             return _buildSlideTransitionRoute(const Todos());
           case '/todo':
-            return _buildSlideTransitionRoute(const Todo());
+            final int idx = settings.arguments as int;
+            return _buildSlideTransitionRoute(Todo(idx: idx));
           case '/create':
             return _buildSlideTransitionRoute(const CreateTodo());
           case '/update':
-            return _buildSlideTransitionRoute(const UpdateTodo());
+            final int idx = settings.arguments as int;
+            return _buildSlideTransitionRoute(UpdateTodo(idx: idx));
           default:
             return null;
         }

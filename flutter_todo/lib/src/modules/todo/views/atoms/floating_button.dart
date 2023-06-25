@@ -37,6 +37,8 @@ class FloatingButton extends HookWidget {
               backgroundColor: Colors.black,
               onPressed: () async {
                 await deleteAllToken();
+                Navigator.of(context)
+                    .pushNamedAndRemoveUntil('/todos', (route) => false);
               },
               child: const Icon(Icons.person),
             ),

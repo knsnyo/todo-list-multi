@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_todo/src/modules/common/storage/secure_storage.dart';
 
-Dio tokenDio() {
+Future<Dio> tokenDio() async {
   final dio = Dio();
 
   dio.interceptors.add(InterceptorsWrapper(
@@ -10,6 +10,8 @@ Dio tokenDio() {
       options.headers['Authorization'] = 'Bearer ${tokens['accessToken']}';
       options.headers['Set-Cookie'] =
           'refresh_token=${tokens['refreshToken']};';
+
+      return handler.next(options);
     },
     onResponse: (response, handler) async {
       final accessToken = response.data['accessToken'];

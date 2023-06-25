@@ -16,7 +16,8 @@ class SigninButton extends HookConsumerWidget {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('로그인 실패')));
         } else {}
-        return Navigator.of(context).pop();
+        Navigator.of(context)
+            .pushNamedAndRemoveUntil('/todos', (route) => false);
       },
       text: '로그인',
     );
