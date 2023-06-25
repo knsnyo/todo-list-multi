@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_todo/main.dart';
 import 'package:flutter_todo/src/modules/common/widgets/header.dart';
 import 'package:flutter_todo/src/modules/todo/models/todo_model.dart';
@@ -14,6 +15,17 @@ class Todos extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todoViewmodel = ref.watch(todoViewmodelProvider);
+
+    useEffect(() {
+      final focusNode = FocusNode();
+      focusNode.addListener(() {});
+
+      return () {
+        focusNode.removeListener(() {});
+        focusNode.dispose();
+      };
+    }, []);
+
     return FutureBuilder(
       future: todoViewmodel.getTodos(),
       builder: (context, snapshot) {
