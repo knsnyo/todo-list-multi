@@ -11,6 +11,7 @@ class IdInput extends HookConsumerWidget {
     final signupViewmodel = ref.watch(signupViewmodelProvider);
 
     return Input(
+      init: '',
       hint: '아이디',
       obscureText: false,
       onChangeText: (text) => signupViewmodel.changeId = text,

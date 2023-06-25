@@ -6,19 +6,22 @@ class Input extends HookConsumerWidget {
   final String hint;
   final bool obscureText;
   final void Function(String value) onChangeText;
+  final String init;
 
-  const Input({
+  Input({
     super.key,
     required this.hint,
     required this.obscureText,
     required this.onChangeText,
+    required this.init,
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return SizedBox(
       width: vw(context, 70),
-      child: TextField(
+      child: TextFormField(
+        initialValue: init,
         obscureText: obscureText,
         textAlign: TextAlign.center,
         decoration: InputDecoration(

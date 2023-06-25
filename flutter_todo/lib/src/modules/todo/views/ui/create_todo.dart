@@ -22,6 +22,7 @@ class CreateTodo extends HookConsumerWidget {
             const Text('할일 입력'),
             SizedBox(height: rem(2)),
             Input(
+              init: '',
               hint: '할일 입력',
               obscureText: false,
               onChangeText: (value) => todoViewmodel.changeMemo = value,
