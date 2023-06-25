@@ -7,6 +7,7 @@ import 'package:flutter_todo/src/modules/todo/services/create_todo_service.dart'
 import 'package:flutter_todo/src/modules/todo/services/delete_todo_service.dart';
 import 'package:flutter_todo/src/modules/todo/services/get_todo_service.dart';
 import 'package:flutter_todo/src/modules/todo/services/get_todos_service.dart';
+import 'package:flutter_todo/src/modules/todo/services/update_todo_service.dart';
 
 class TodoViewmodel extends ChangeNotifier {
   String memo = '';
@@ -49,6 +50,16 @@ class TodoViewmodel extends ChangeNotifier {
         'refresh_token=${tokens['refreshToken']};';
 
     return await requestCreateTodo(dio, memo);
+  }
+
+  Future<Response> updateTodo(int idx) async {
+    Dio dio = Dio(BaseOptions(baseUrl: todoUrl));
+    Map<String, String> tokens = await getAllTokens();
+    dio.options.headers['Authorization'] = 'Bearer ${tokens['accessToken']}';
+    dio.options.headers['Set-Cookie'] =
+        'refresh_token=${tokens['refreshToken']};';
+
+    return await requestUpdateTodo(dio, idx, memo);
   }
 
   Future<Response> deleteTodo(int idx) async {
