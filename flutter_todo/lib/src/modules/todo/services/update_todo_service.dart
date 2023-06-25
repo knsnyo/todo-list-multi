@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_todo/src/modules/common/utils/token_dio.dart';
 import 'package:flutter_todo/src/modules/common/utils/url.dart';
 
-Future<Response> requestUpdateTodo(Dio dio, int idx, String memo) async {
+Future<Response> requestUpdateTodo(int idx, String memo) async {
   try {
-    Response response = await dio.put('$todoUrl/$idx', data: {
+    Dio DIO = await tokenDio();
+    Response response = await DIO.put('$todoUrl/$idx', data: {
       "memo": memo,
     });
     return response;

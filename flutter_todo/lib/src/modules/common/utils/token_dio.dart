@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_todo/src/modules/common/storage/secure_storage.dart';
 
 Future<Dio> tokenDio() async {
-  final dio = Dio();
+  final Dio dio = Dio();
 
   dio.interceptors.add(InterceptorsWrapper(
     onRequest: (options, handler) async {
@@ -14,17 +14,17 @@ Future<Dio> tokenDio() async {
       return handler.next(options);
     },
     onResponse: (response, handler) async {
-      final accessToken = response.data['accessToken'];
-      final refreshToken = response.data['refreshToken'];
+      String accessToken = response.data?['accessToken'] ?? '';
+      String refreshToken = response.data?['refreshToken'] ?? '';
 
-      if (null != accessToken) {
+      if ('' != accessToken) {
         await setAccessToken(accessToken);
       }
-      if (null != refreshToken) {
+      if ('' != refreshToken) {
         await setRefreshToken(refreshToken);
       }
 
-      return handler.next(response.data);
+      return handler.next(response);
     },
   ));
 
