@@ -1,13 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_todo/src/modules/common/utils/token_dio.dart';
 import 'package:flutter_todo/src/modules/common/utils/url.dart';
 
-Future<Response> requestDeleteTodo(int idx) async {
-  try {
-    Dio DIO = await tokenDio();
-    Response response = await DIO.delete('$todoUrl/$idx');
-    return response;
-  } catch (error) {
-    rethrow;
-  }
-}
+Future<void> requestDeleteTodo(int idx) async => (await tokenDio())
+    .delete('$todoUrl/$idx')
+    .catchError((error) => throw error);

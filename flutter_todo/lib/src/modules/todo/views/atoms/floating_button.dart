@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_expandable_fab/flutter_expandable_fab.dart';
-import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:flutter_todo/main.dart';
 import 'package:flutter_todo/src/modules/common/storage/secure_storage.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class FloatingButton extends HookWidget {
+class FloatingButton extends HookConsumerWidget {
   const FloatingButton({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final todoNotifier = ref.watch(todoViewModelProvider.notifier);
     final key = GlobalKey<ExpandableFabState>();
     return ExpandableFab(
       key: key,
@@ -39,9 +41,7 @@ class FloatingButton extends HookWidget {
               heroTag: null,
               backgroundColor: Colors.black,
               onPressed: () async {
-                await deleteAllToken();
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/todos', (route) => false);
+                await deleteAllToken().then((_) => todoNotifier.refresh());
               },
               child: const Icon(Icons.person),
             ),

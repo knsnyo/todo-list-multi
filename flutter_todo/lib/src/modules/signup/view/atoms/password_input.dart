@@ -8,12 +8,12 @@ class PasswordInput extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final signupViewModel = ref.watch(signupViewModelProvider.notifier);
+    final signupNotifier = ref.watch(signupViewModelProvider.notifier);
     return Input(
       init: '',
       hint: '비밀번호',
       obscureText: true,
-      onChangeText: (text) => signupViewModel.changePassword(text),
+      onChangeText: (text) => signupNotifier.changePassword(text),
     );
   }
 }

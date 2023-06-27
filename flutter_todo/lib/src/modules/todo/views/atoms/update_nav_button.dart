@@ -4,6 +4,8 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 class UpdateNavButton extends HookWidget {
   final int idx;
   const UpdateNavButton({super.key, required this.idx});
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Navigator.of(context).pushNamed('/update', arguments: idx),

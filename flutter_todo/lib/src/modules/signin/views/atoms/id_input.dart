@@ -8,13 +8,13 @@ class IdInput extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final signinViewModel = ref.watch(signinViewModelProvider);
+    final signinNotifier = ref.watch(signinViewModelProvider.notifier);
 
     return Input(
       init: '',
       hint: '아이디',
       obscureText: false,
-      onChangeText: (text) => signinViewModel.changeId = text,
+      onChangeText: (text) => signinNotifier.changeId(text),
     );
   }
 }
