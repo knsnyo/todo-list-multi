@@ -8,7 +8,9 @@ class FloatingButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final key = GlobalKey<ExpandableFabState>();
     return ExpandableFab(
+      key: key,
       backgroundColor: Colors.black,
       closeButtonStyle: const ExpandableFabCloseButtonStyle(
         child: Icon(Icons.close),
@@ -28,6 +30,7 @@ class FloatingButton extends HookWidget {
               heroTag: null,
               backgroundColor: Colors.black,
               onPressed: () {
+                key.currentState!.toggle();
                 Navigator.of(context).pushNamed('/create');
               },
               child: const Icon(Icons.edit),

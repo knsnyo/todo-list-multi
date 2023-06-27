@@ -10,12 +10,12 @@ class DeleteButton extends HookConsumerWidget {
     final todoViewmodel = ref.watch(todoViewmodelProvider);
     return GestureDetector(
       onTap: () async {
+        Navigator.of(context).pop();
         Response response = await todoViewmodel.deleteTodo(idx);
         if (204 != response.statusCode) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('할일 삭제 실패')));
         }
-        Navigator.of(context).pop();
       },
       child: const Text(
         '삭제',

@@ -13,18 +13,23 @@ class TodoViewmodel extends ChangeNotifier {
   set changeMemo(String value) => memo = value;
 
   Future<List<TodoModel>> getTodos() async {
-    Response response = await requestGetTodos();
-    return (response.data['todos'] as List<dynamic>)
-        .map((json) => TodoModel.fromJson(json))
-        .toList();
+    try {
+      Response response = await requestGetTodos();
+      return (response.data['todos'] as List<dynamic>)
+          .map((json) => TodoModel.fromJson(json))
+          .toList();
+    } catch (error) {
+      rethrow;
+    }
   }
 
   Future<TodoModel> getTodo(int idx) async {
-    Response response = await requestGetTodo(idx);
-    if (null == response.data['todo']) {
-      throw Error();
+    try {
+      Response response = await requestGetTodo(idx);
+      return TodoModel.fromJson(response.data['todo']);
+    } catch (error) {
+      rethrow;
     }
-    return TodoModel.fromJson(response.data['todo']);
   }
 
   Future<Response> createTodo() async {
