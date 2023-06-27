@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/main.dart';
 import 'package:flutter_todo/src/modules/common/styles/size.dart';
+import 'package:flutter_todo/src/modules/common/widgets/error_body.dart';
 import 'package:flutter_todo/src/modules/common/widgets/header.dart';
+import 'package:flutter_todo/src/modules/common/widgets/load_body.dart';
 import 'package:flutter_todo/src/modules/todo/views/atoms/delete_button.dart';
 import 'package:flutter_todo/src/modules/todo/views/atoms/update_nav_button.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -37,10 +39,8 @@ class Todo extends HookConsumerWidget {
             ],
           ),
         ),
-        error: (error, stackTrace) => Container(),
-        loading: () => const Center(
-          child: CircularProgressIndicator(),
-        ),
+        error: (error, stackTrace) => const ErrorBody(),
+        loading: () => const LoadBody(),
       ),
     );
   }
