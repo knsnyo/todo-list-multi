@@ -58,7 +58,7 @@ class TodoViewModel extends AsyncNotifier<TodoModel> {
       await requestDeleteTodo(idx).catchError((error) => throw error);
       List<Todo> todos =
           await requestGetTodos().catchError((error) => throw error);
-      return TodoModel(state.value!.todo, todos);
+      return TodoModel(Todo(idx: 0, user: 0, memo: ''), todos);
     });
   }
 

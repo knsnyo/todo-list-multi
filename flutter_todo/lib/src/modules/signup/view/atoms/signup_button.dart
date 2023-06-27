@@ -9,12 +9,12 @@ class SignupButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final signupNotifier = ref.watch(signupViewModelProvider.notifier);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final navigator = Navigator.of(context);
     return Button(
       onPress: () async {
-        await signupNotifier
-            .signup()
-            .then((_) => Navigator.of(context).pop())
-            .catchError((error) => ScaffoldMessenger.of(context)
+        await signupNotifier.signup().then((_) => navigator.pop()).catchError(
+            (error) => scaffoldMessenger
                 .showSnackBar(const SnackBar(content: Text('회원가입 실패'))));
       },
       text: '회원가입',

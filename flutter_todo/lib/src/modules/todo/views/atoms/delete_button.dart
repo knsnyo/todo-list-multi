@@ -9,12 +9,14 @@ class DeleteButton extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todoNotifier = ref.watch(todoViewModelProvider.notifier);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final navigator = Navigator.of(context);
     return GestureDetector(
       onTap: () async {
         await todoNotifier
             .deleteTodo(idx)
-            .then((value) => Navigator.of(context).pop())
-            .catchError((_) => ScaffoldMessenger.of(context)
+            .then((value) => navigator.pop())
+            .catchError((_) => scaffoldMessenger
                 .showSnackBar(const SnackBar(content: Text('할일 삭제 실패'))));
       },
       child: const Text(

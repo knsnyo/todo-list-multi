@@ -37,7 +37,7 @@ class Todo extends HookConsumerWidget {
             ],
           ),
         ),
-        error: (error, stackTrace) => const Center(),
+        error: (error, stackTrace) => Container(),
         loading: () => const Center(
           child: CircularProgressIndicator(),
         ),

@@ -11,6 +11,7 @@ class FloatingButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todoNotifier = ref.watch(todoViewModelProvider.notifier);
     final key = GlobalKey<ExpandableFabState>();
+    final navigator = Navigator.of(context);
     return ExpandableFab(
       key: key,
       backgroundColor: Colors.black,
@@ -33,7 +34,7 @@ class FloatingButton extends HookConsumerWidget {
               backgroundColor: Colors.black,
               onPressed: () {
                 key.currentState!.toggle();
-                Navigator.of(context).pushNamed('/create');
+                navigator.pushNamed('/create');
               },
               child: const Icon(Icons.edit),
             ),

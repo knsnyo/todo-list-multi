@@ -7,8 +7,9 @@ class UpdateNavButton extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
+    final navigator = Navigator.of(context);
     return GestureDetector(
-      onTap: () => Navigator.of(context).pushNamed('/update', arguments: idx),
+      onTap: () => navigator.pushNamed('/update', arguments: idx),
       child: const Text(
         '수정',
         style: TextStyle(color: Colors.blue),

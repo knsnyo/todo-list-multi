@@ -10,12 +10,14 @@ class SigninButton extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final signinNotifier = ref.watch(signinViewModelProvider.notifier);
     final todoNotifier = ref.watch(todoViewModelProvider.notifier);
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final navigator = Navigator.of(context);
     return Button(
       onPress: () async {
         await signinNotifier.signin().then((_) {
           todoNotifier.refresh();
-          return Navigator.of(context).pop();
-        }).catchError((error) => ScaffoldMessenger.of(context)
+          return navigator.pop();
+        }).catchError((error) => scaffoldMessenger
             .showSnackBar(const SnackBar(content: Text('로그인 실패'))));
       },
       text: '로그인',

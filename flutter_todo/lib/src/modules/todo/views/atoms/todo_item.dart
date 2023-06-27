@@ -15,13 +15,14 @@ class TodoItem extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todoNotifier = ref.watch(todoViewModelProvider.notifier);
+    final navigator = Navigator.of(context);
     return Padding(
       padding: EdgeInsets.all(rem(2)),
       child: Center(
         child: GestureDetector(
           onTap: () {
             todoNotifier.getTodo(idx);
-            Navigator.of(context).pushNamed('/todo', arguments: idx);
+            navigator.pushNamed('/todo', arguments: idx);
           },
           child: Text(text),
         ),

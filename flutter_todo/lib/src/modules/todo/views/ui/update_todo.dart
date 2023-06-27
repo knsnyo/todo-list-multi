@@ -16,6 +16,8 @@ class UpdateTodo extends HookConsumerWidget {
     final todoModel = ref.watch(todoViewModelProvider);
     final todoNotifier = ref.watch(todoViewModelProvider.notifier);
     final memo = useState<String>('');
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final navigator = Navigator.of(context);
     return Scaffold(
         appBar: Header(context: context),
         body: todoModel.when(
@@ -36,10 +38,9 @@ class UpdateTodo extends HookConsumerWidget {
                   onPress: () async {
                     await todoNotifier
                         .updateTodo(idx, memo.value)
-                        .then((_) => Navigator.of(context).pop())
-                        .catchError((_) => ScaffoldMessenger.of(context)
-                            .showSnackBar(
-                                const SnackBar(content: Text('할일 수정 실패'))));
+                        .then((_) => navigator.pop())
+                        .catchError((_) => scaffoldMessenger.showSnackBar(
+                            const SnackBar(content: Text('할일 수정 실패'))));
                   },
                   text: '수정',
                 ),

@@ -14,6 +14,8 @@ class CreateTodo extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final todoNotifier = ref.watch(todoViewModelProvider.notifier);
     final memo = useState<String>('');
+    final scaffoldMessenger = ScaffoldMessenger.of(context);
+    final navigator = Navigator.of(context);
     return Scaffold(
       appBar: Header(context: context),
       body: Center(
@@ -33,10 +35,9 @@ class CreateTodo extends HookConsumerWidget {
               onPress: () async {
                 await todoNotifier
                     .createTodo(memo.value)
-                    .then((_) => Navigator.of(context).pop())
-                    .catchError((_) => ScaffoldMessenger.of(context)
-                        .showSnackBar(
-                            const SnackBar(content: Text('할일 등록 실패'))));
+                    .then((_) => navigator.pop())
+                    .catchError((_) => scaffoldMessenger.showSnackBar(
+                        const SnackBar(content: Text('할일 등록 실패'))));
               },
               text: '등록',
             ),

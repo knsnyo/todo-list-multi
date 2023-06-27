@@ -7,8 +7,9 @@ class SignupNavButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final navigator = Navigator.of(context);
     return Button(
-      onPress: () => Navigator.of(context).pushNamed('/signup'),
+      onPress: () => navigator.pushNamed('/signup'),
       text: '회원가입',
     );
   }
