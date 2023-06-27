@@ -16,12 +16,12 @@ class Todo extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todoViewmodel = ref.watch(todoViewmodelProvider);
+    final todoViewModel = ref.watch(todoViewModelProvider);
 
     return Scaffold(
       appBar: Header(context: context),
       body: FutureBuilder(
-        future: todoViewmodel.getTodo(idx),
+        future: todoViewModel.getTodo(idx),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
             return Container();

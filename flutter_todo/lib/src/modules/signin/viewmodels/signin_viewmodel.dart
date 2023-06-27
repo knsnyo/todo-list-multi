@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_todo/src/modules/signin/models/signin_model.dart';
 import 'package:flutter_todo/src/modules/signin/services/signin_service.dart';
 
-class SigninViewmodel extends ChangeNotifier {
+class SigninViewModel extends ChangeNotifier {
   String id = '';
   String password = '';
 

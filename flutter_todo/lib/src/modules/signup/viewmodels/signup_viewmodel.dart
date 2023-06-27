@@ -1,26 +1,20 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_todo/src/modules/signup/models/signup_model.dart';
 import 'package:flutter_todo/src/modules/signup/services/signup_service.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SignupViewmodel extends ChangeNotifier {
-  String id = '';
-  String password = '';
+class SignupViewModel extends StateNotifier<SignupModel> {
+  SignupViewModel() : super(SignupModel(id: '', password: ''));
 
-  set changeId(String value) => id = value;
-  set changePassword(String value) => password = value;
+  void changeId(String id) {
+    state = SignupModel(id: id, password: state.password);
+  }
 
-  Future<bool> signup() async {
-    try {
-      Response res =
-          await requestSignup(SignupModel(id: id, password: password));
-      if (201 != res.statusCode) {
-        throw Exception('회원가입 실패');
-      }
-      return true;
-    } catch (error) {
-      // error handling
-      return false;
-    }
+  void changePassword(String password) {
+    state = SignupModel(id: state.id, password: password);
+  }
+
+  Future<Response> signup() async {
+    return await requestSignup(state);
   }
 }

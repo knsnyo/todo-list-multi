@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_todo/main.dart';
 import 'package:flutter_todo/src/modules/common/widgets/button.dart';
@@ -8,11 +9,11 @@ class SignupButton extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final signupViewmodel = ref.watch(signupViewmodelProvider);
+    final signupViewModel = ref.watch(signupViewModelProvider.notifier);
     return Button(
       onPress: () async {
-        bool isSuccess = await signupViewmodel.signup();
-        if (!isSuccess) {
+        Response response = await signupViewModel.signup();
+        if (201 != response.statusCode) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text('회원가입 실패')));
           return;

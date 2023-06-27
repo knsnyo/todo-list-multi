@@ -13,10 +13,10 @@ class Todos extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final todoViewmodel = ref.watch(todoViewmodelProvider);
+    final todoViewModel = ref.watch(todoViewModelProvider);
 
     return FutureBuilder(
-      future: todoViewmodel.getTodos(),
+      future: todoViewModel.getTodos(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Scaffold(

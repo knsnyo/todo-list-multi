@@ -7,7 +7,10 @@ import 'package:flutter_todo/src/modules/todo/services/get_todo_service.dart';
 import 'package:flutter_todo/src/modules/todo/services/get_todos_service.dart';
 import 'package:flutter_todo/src/modules/todo/services/update_todo_service.dart';
 
-class TodoViewmodel extends ChangeNotifier {
+class TodoViewModel extends ChangeNotifier {
+  List<TodoModel> todos = [];
+  TodoModel todo = TodoModel(idx: 0, user: 0, memo: '');
+
   String memo = '';
 
   set changeMemo(String value) => memo = value;
