@@ -23,6 +23,9 @@ class Todo extends HookConsumerWidget {
       body: FutureBuilder(
         future: todoViewmodel.getTodo(idx),
         builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            Navigator.of(context).pop();
+          }
           if (!snapshot.hasData) {
             return const CircularProgressIndicator();
           }

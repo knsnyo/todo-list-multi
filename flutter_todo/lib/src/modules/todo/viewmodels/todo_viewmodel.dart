@@ -21,18 +21,27 @@ class TodoViewmodel extends ChangeNotifier {
 
   Future<TodoModel> getTodo(int idx) async {
     Response response = await requestGetTodo(idx);
+    if (null == response.data['todo']) {
+      throw Error();
+    }
     return TodoModel.fromJson(response.data['todo']);
   }
 
   Future<Response> createTodo() async {
-    return await requestCreateTodo(memo);
+    Response response = await requestCreateTodo(memo);
+    notifyListeners();
+    return response;
   }
 
   Future<Response> updateTodo(int idx) async {
-    return await requestUpdateTodo(idx, memo);
+    Response response = await requestUpdateTodo(idx, memo);
+    notifyListeners();
+    return response;
   }
 
   Future<Response> deleteTodo(int idx) async {
-    return await requestDeleteTodo(idx);
+    Response response = await requestDeleteTodo(idx);
+    notifyListeners();
+    return response;
   }
 }

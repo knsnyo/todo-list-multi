@@ -35,8 +35,7 @@ class CreateTodo extends HookConsumerWidget {
                   ScaffoldMessenger.of(context)
                       .showSnackBar(SnackBar(content: Text('할일 등록 실패')));
                 }
-                Navigator.of(context)
-                    .pushNamedAndRemoveUntil('/todos', (route) => false);
+                Navigator.of(context).pop();
               },
               text: '등록',
             ),
