@@ -1,12 +1,12 @@
 import SwiftUI
 
-struct ContentView: View {
+struct Todos: View {
     var body: some View {
-        Todos()
+        NoAuth()
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
+struct Todos_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
     }

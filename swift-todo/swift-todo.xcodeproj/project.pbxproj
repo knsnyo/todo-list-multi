@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65D961A02A5121090051761B /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D9619F2A5121090051761B /* Button.swift */; };
+		65D961A42A51226A0051761B /* size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D961A32A51226A0051761B /* size.swift */; };
+		65D961AA2A5127EE0051761B /* Todos.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D961A92A5127EE0051761B /* Todos.swift */; };
+		65D961AC2A5128610051761B /* NoAuth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D961AB2A5128610051761B /* NoAuth.swift */; };
+		65D961AE2A5128920051761B /* SigninNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D961AD2A5128920051761B /* SigninNavButton.swift */; };
+		65D961B02A5128A80051761B /* SignupNavButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65D961AF2A5128A80051761B /* SignupNavButton.swift */; };
 		65EC30D52A48CEDB00C73A3E /* swift_todoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC30D42A48CEDB00C73A3E /* swift_todoApp.swift */; };
 		65EC30D72A48CEDB00C73A3E /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65EC30D62A48CEDB00C73A3E /* ContentView.swift */; };
 		65EC30D92A48CEDC00C73A3E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 65EC30D82A48CEDC00C73A3E /* Assets.xcassets */; };
@@ -34,6 +40,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		65D9619F2A5121090051761B /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
+		65D961A32A51226A0051761B /* size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = size.swift; sourceTree = "<group>"; };
+		65D961A92A5127EE0051761B /* Todos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Todos.swift; sourceTree = "<group>"; };
+		65D961AB2A5128610051761B /* NoAuth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoAuth.swift; sourceTree = "<group>"; };
+		65D961AD2A5128920051761B /* SigninNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SigninNavButton.swift; sourceTree = "<group>"; };
+		65D961AF2A5128A80051761B /* SignupNavButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupNavButton.swift; sourceTree = "<group>"; };
 		65EC30D12A48CEDB00C73A3E /* swift-todo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "swift-todo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		65EC30D42A48CEDB00C73A3E /* swift_todoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swift_todoApp.swift; sourceTree = "<group>"; };
 		65EC30D62A48CEDB00C73A3E /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -72,6 +84,106 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		65D961992A5120240051761B /* modules */ = {
+			isa = PBXGroup;
+			children = (
+				65D9619B2A5120560051761B /* common */,
+				65D9619D2A5120690051761B /* signin */,
+				65D9619C2A5120600051761B /* signup */,
+				65D9619E2A5120700051761B /* todo */,
+			);
+			path = modules;
+			sourceTree = "<group>";
+		};
+		65D9619A2A5120450051761B /* navigation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = navigation;
+			sourceTree = "<group>";
+		};
+		65D9619B2A5120560051761B /* common */ = {
+			isa = PBXGroup;
+			children = (
+				65D961A22A51225B0051761B /* utils */,
+				65D961A12A5122450051761B /* widgets */,
+			);
+			path = common;
+			sourceTree = "<group>";
+		};
+		65D9619C2A5120600051761B /* signup */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = signup;
+			sourceTree = "<group>";
+		};
+		65D9619D2A5120690051761B /* signin */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = signin;
+			sourceTree = "<group>";
+		};
+		65D9619E2A5120700051761B /* todo */ = {
+			isa = PBXGroup;
+			children = (
+				65D961A52A5127080051761B /* ui */,
+			);
+			path = todo;
+			sourceTree = "<group>";
+		};
+		65D961A12A5122450051761B /* widgets */ = {
+			isa = PBXGroup;
+			children = (
+				65D9619F2A5121090051761B /* Button.swift */,
+			);
+			path = widgets;
+			sourceTree = "<group>";
+		};
+		65D961A22A51225B0051761B /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				65D961A32A51226A0051761B /* size.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
+		65D961A52A5127080051761B /* ui */ = {
+			isa = PBXGroup;
+			children = (
+				65D961A62A51270F0051761B /* atoms */,
+				65D961A72A5127150051761B /* blocks */,
+				65D961A82A51271B0051761B /* views */,
+			);
+			path = ui;
+			sourceTree = "<group>";
+		};
+		65D961A62A51270F0051761B /* atoms */ = {
+			isa = PBXGroup;
+			children = (
+				65D961AD2A5128920051761B /* SigninNavButton.swift */,
+				65D961AF2A5128A80051761B /* SignupNavButton.swift */,
+			);
+			path = atoms;
+			sourceTree = "<group>";
+		};
+		65D961A72A5127150051761B /* blocks */ = {
+			isa = PBXGroup;
+			children = (
+				65D961AB2A5128610051761B /* NoAuth.swift */,
+			);
+			path = blocks;
+			sourceTree = "<group>";
+		};
+		65D961A82A51271B0051761B /* views */ = {
+			isa = PBXGroup;
+			children = (
+				65D961A92A5127EE0051761B /* Todos.swift */,
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
 		65EC30C82A48CEDB00C73A3E = {
 			isa = PBXGroup;
 			children = (
@@ -95,6 +207,8 @@
 		65EC30D32A48CEDB00C73A3E /* swift-todo */ = {
 			isa = PBXGroup;
 			children = (
+				65D9619A2A5120450051761B /* navigation */,
+				65D961992A5120240051761B /* modules */,
 				65EC30D42A48CEDB00C73A3E /* swift_todoApp.swift */,
 				65EC30D62A48CEDB00C73A3E /* ContentView.swift */,
 				65EC30D82A48CEDC00C73A3E /* Assets.xcassets */,
@@ -259,8 +373,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65D961AC2A5128610051761B /* NoAuth.swift in Sources */,
+				65D961A42A51226A0051761B /* size.swift in Sources */,
 				65EC30D72A48CEDB00C73A3E /* ContentView.swift in Sources */,
+				65D961A02A5121090051761B /* Button.swift in Sources */,
+				65D961AE2A5128920051761B /* SigninNavButton.swift in Sources */,
+				65D961AA2A5127EE0051761B /* Todos.swift in Sources */,
 				65EC30D52A48CEDB00C73A3E /* swift_todoApp.swift in Sources */,
+				65D961B02A5128A80051761B /* SignupNavButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
